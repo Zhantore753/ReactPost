@@ -49,16 +49,18 @@ export default class App extends Component{
         });
     }
 
-    onToggleImportant(id){
-        console.log(`Important ${id}`);
-    }
-
-    onToggleLiked(id){
+    onToggle(param, id){
         this.setState(({data})=>{
             const index = data.findIndex(elem=> elem.id === id);
 
             const old = data[index];
-            const newItem = {...old, like: !old.like};
+            let newItem;
+            if(param == 'important'){
+                newItem = {...old, important: !old.important};
+            } else{
+                newItem = {...old, like: !old.like};
+            }
+            
 
             const newArr = [...data.slice(0, index), newItem , ...data.slice(index + 1)];
 
@@ -68,9 +70,17 @@ export default class App extends Component{
         });
     }
 
+    onToggleImportant(id){
+        this.onToggle('important', id);
+    }
+
+    onToggleLiked(id){
+        this.onToggle('like', id);
+    }
+
     render(){
         const {data} = this.state;
-        
+
         const liked = data.filter(item => item.like).length;
         const allPosts = data.length;
 
