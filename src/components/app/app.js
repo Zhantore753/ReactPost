@@ -60,8 +60,7 @@ export default class App extends Component{
             } else{
                 newItem = {...old, like: !old.like};
             }
-            
-
+        
             const newArr = [...data.slice(0, index), newItem , ...data.slice(index + 1)];
 
             return{
